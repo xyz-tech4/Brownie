@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Cyber Security Simulation</title>
+
+<style>
+
+body{
+margin:0;
+background:black;
+color:#00ff00;
+font-family:monospace;
+overflow:hidden;
+}
+
+canvas{
+position:fixed;
+top:0;
+left:0;
+}
+
+.center{
+position:absolute;
+top:50%;
+left:50%;
+transform:translate(-50%,-50%);
+text-align:center;
+}
+
+h1{
+color:red;
+font-size:50px;
+text-shadow:0 0 15px red;
+}
+
+#terminal{
+margin-top:20px;
+font-size:18px;
+}
+
+#timer{
+color:yellow;
+font-size:28px;
+margin-top:20px;
+}
+
+.label{
+position:fixed;
+top:10px;
+left:10px;
+color:white;
+font-size:14px;
+background:red;
+padding:5px 10px;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="label">CYBERSECURITY SIMULATION</div>
+
+<canvas id="matrix"></canvas>
+
+<div class="center">
+<h1>System Security Breach</h1>
+<div id="terminal"></div>
+<div id="timer"></div>
+</div>
+
+<script>
+
+const messages = [
+"Initializing security scan...",
+"Checking network ports...",
+"Analyzing firewall status...",
+"Detecting vulnerabilities...",
+"Security alert triggered",
+"SECURITY BREACH DETECTED",
+"Your data has been compromised"
+];
+
+
+let i = 0;
+
+function showMessage(){
+
+if(i < messages.length){
+
+document.getElementById("terminal").innerHTML += messages[i] + "<br>";
+i++;
+
+setTimeout(showMessage,1000);
+
+}
+
+}
+
+showMessage();
+
+
+let time = 10;
+
+function countdown(){
+
+if(time >= 0){
+
+document.getElementById("timer").innerHTML =
+"System lockdown in: " + time;
+
+time--;
+
+setTimeout(countdown,1000);
+
+}
+
+}
+
+countdown();
+
+
+var canvas = document.getElementById("matrix");
+var ctx = canvas.getContext("2d");
+
+canvas.height = window.innerHeight;
+canvas.width = window.innerWidth;
+
+var letters = "01";
+letters = letters.split("");
+
+var fontSize = 14;
+var columns = canvas.width/fontSize;
+var drops = [];
+
+for(var x = 0; x < columns; x++)
+drops[x] = 1;
+
+function draw(){
+
+ctx.fillStyle = "rgba(0,0,0,0.05)";
+ctx.fillRect(0,0,canvas.width,canvas.height);
+
+ctx.fillStyle = "#0F0";
+ctx.font = fontSize + "px monospace";
+
+for(var i = 0; i < drops.length; i++){
+
+var text = letters[Math.floor(Math.random()*letters.length)];
+
+ctx.fillText(text,i*fontSize,drops[i]*fontSize);
+
+if(drops[i]*fontSize > canvas.height && Math.random() > 0.975)
+drops[i] = 0;
+
+drops[i]++;
+
+}
+
+}
+
+setInterval(draw,33);
+
+</script>
+
+</body>
+</html>
